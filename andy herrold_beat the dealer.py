@@ -33,6 +33,11 @@ class hitBtn(simpleGE.Sprite):
         super().__init__()
         self.text = "Hit"
         
+class stndBtn(simpleGE.Sprite)
+    def_init_(self):
+        super().__init__()
+        self.text = "Hit"
+        
         
         
     
