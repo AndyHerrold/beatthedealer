@@ -117,91 +117,61 @@ class Deck(object):
                 
     def showHand(self):
         for card in self.cards:
-        
-        
+            if card.state == Hand:
+                card.display()
+#figure out how to replace print state ments with copying image to delerHnd and playerHand                
+    def showDiscard(self):
+        for card in self.cards:
+            if card.state == DISCARD:
+                card.display()
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    def showAllCards(self):
+        for card in self.cards:
+            card.displayShort()
+        print()
+        
+    def shuffle(self):
+        """returns used cards back into deck"""
+        print("shuffling")
+        for card in self.cards:
+            if card.state == DISCARD:
+                card.state = DECK
+                
+    def cardsInDeck(self):
+        cardsLeft = 0
+        for cards in self.cards:
+            if card.state == DECK:
+                cardsLeft += 1
+        return cardsLeft
+
+    def discard(self, cardNum):
+        hand = []
+        for card in self.cards:
+            if card,state == HAND
+                hand.append(card)
+                
+        currentCard = hand[cardNum]
+        currentCard.state = DISCARD
+        
+    def deal(self, numCards):
+        for cardNum in range(numCards):
+            if self.cardsInDeck() <= 0:
+                self.shuffle()
+                
+            keepGoing = True
+            while keepGoing:
+                currentCard = random.choice(self.cards)
+                if currentCard.state == DECK:
+                    currentCard.state = HAND
+                    keepGoing = False
+        
+class Instructions(simpleGE.Scene):
+    def__init__(self, prevScore):
+        super().__init__()
+        
+        self.prevScore = prevScore
+        self.setImage("lasvegas.jpg")
+        self.response = "Quit"
         
         
         
