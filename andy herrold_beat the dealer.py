@@ -17,11 +17,12 @@ FILE_RANK_NAME = ("ace", "2", "3", "3", "5", "6", "7", "8", "9", "10", "jack",
                   "queen", "king")
 
 SUITNAME = ("clubs", "hearts", "spades", "diamonds")
-STATE = ("deck", "showing", "discarded")
+STATE = ("deck", "playerhand", "dealerhand", "discarded")
 
 DECK = 0
-SHOWING = 1
-DISCARDED = 2
+PLAYERHAND = 1
+DEALERHAND = 2
+DISCARDED = 3
 
 class Game(simplGE.Scene):
     def__init__(self):
@@ -48,7 +49,7 @@ class CardSlot(simpleGE.Sprite):
             cardNum = random.randrange(NUMCARDS)
             currentCard = self.scene.cards[cardNum]
             self.copyImage(currentCard.image)
-            
+#modify so no card in deck is repeated            
 class Card(object):
     def__init__(self, cardNum):
         super().__init__()
@@ -59,6 +60,20 @@ class Card(object):
         
         self.suitName = SUITNAME[self.suit]
         self.rankName = RANKNAME[self.rank]
+        
+        self.state = DECK
+        
+        #set up file name to get correct image
+        self.cardFileName = "svg_playing_cards\\fronts\\"
+        self.cardFileName += SUITNAME[self.suit]
+        self.cardFileName += File_Rank_Name[self.rank] + ".svg"
+        print(self.cardFileName)
+        
+        #grab and store image
+        self.image = pygame.image.load(self.cardFileName)
+        
+        self.value = self.rank
+        
 # I need to figure out how to assign SVG card to player and dealer hand
 class playerHand(simpleGE.Sprite):
     def__init__(self, scene):
@@ -87,8 +102,21 @@ class hitBtn(simpleGE.Sprite):
 class stndBtn(simpleGE.Sprite)
     def_init_(self):
         super().__init__()
-        self.text = "Hit"
-       
+        self.text = "Stand"
+class Deck(object):
+    def__init__(self):
+        self.cards = []
+        self.setDefaultDeck()
+        
+    def setDefaultDeck(self):#come back to this
+        
+    def showDeck(self):
+        for card in self.cards:
+            if card.state == DECK:
+                card.display()
+                
+    def showHand(self):
+        for card in self.cards:
         
         
     
