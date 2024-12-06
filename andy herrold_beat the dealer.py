@@ -25,21 +25,25 @@ DEALERHAND = 2
 DISCARDED = 3
 
 class Game(simplGE.Scene):
-    def__init__(self):
+    def __init__(self):
         super().__init__()
+        self.sndShuffle = simpleGE.Sound("card-shuffle.ogg")
         self.cardSlot = CardSlot(self)
         self.cardSlot.position = (320, 240) #check
         self.setupCards()
+        self.lblScore = LblScore()
         self.sprites = [self.cardSlot]
         
+        self.sprites = [self.playerHand, self.dealerHand, self.lblScore,]
+        
     def setupCards(self):
-        self.cards []
+        self.cards[0-51]
         for cn in range(NUMCARDS):
             self.cards.append(Card(cn))
 class CardSlot(simpleGE.Sprite):
     """visual element displaying card sprite
         one for every position on table"""
-    def__init__(self.scene):
+    def __init__(self.scene):
         super().__init__(scene)
         self.setImage("svg_playing_cards/backs/fish.svg")
         
@@ -160,7 +164,7 @@ class Deck(object):
                 
             keepGoing = True
             while keepGoing:
-                currentCard = random.choice(self.cards)
+                currentCard = random.choice(self.cards) #figure out distributing cards between dealer and player
                 if currentCard.state == DECK:
                     currentCard.state = HAND
                     keepGoing = False
@@ -172,6 +176,47 @@ class Instructions(simpleGE.Scene):
         self.prevScore = prevScore
         self.setImage("lasvegas.jpg")
         self.response = "Quit"
+        
+        self.directions = simpleGE.MultiLabel()
+        self.directions.textlines = [
+        "You are the gambler", #Define controls for double down and split with corresponding text instructions
+        "Hit with left arrow key, stand with right arrow key",
+        "Beat the dealers hand total without exceeding 21",
+        "Dealer stands on 17 or greater. "
+        "",
+        "Good Luck!"]
+        
+        self.directions.center = (320, 200)
+        self.directions.size = (500, 250)
+        
+        self.btnPlay = simpleGE.Button()
+        self.btnPlay.text = "Play"
+        self.btnPlay.center = (100, 400)
+        
+        self.btnQuit = simpleGE.Button()
+        self.btnQuit.text = "Quit"
+        self.btnQuit.center = (550, 400)
+        
+        self.lblScore = simplGE.Label()
+        self.lblScore.text = "Last score: 0"
+        self.lblScore.center = (320, 400)
+        
+        self.lblScore.text = f"Last score: {self.prevScore}"
+        
+        self.sprites = [self.directions, self.btnPlay, self.btnQuit, self.lblScore]
+        
+    def process(self):
+        if self.btnPlay.clicked:
+            self.response = "Play"
+            self.stop()
+            
+        if self.btnQuit.clicked:
+            self.response = "Quit"
+            self.stop() 
+        
+        
+        
+        
         
         
         
